@@ -1,0 +1,39 @@
+<mat-form-field appearance="outline">
+  <mat-label>Toppings</mat-label>
+  <input
+    type="text"
+    matInput
+    placeholder="Select Users"
+    aria-label="Select Users"
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="states"
+    #trigger="matAutocompleteTrigger"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-optgroup *ngFor="let group of stateList">
+      <div>
+        <mat-checkbox
+          [checked]="group.selected"
+          (change)="toggleParent($event, group)"
+          (click)="$event.stopPropagation()"
+        >
+          {{group.letter}}
+        </mat-checkbox>
+      </div>
+      <mat-option
+        *ngFor="let name of group.names"
+        [value]="name"
+        class="list-show"
+      >
+        <mat-checkbox
+          [checked]="group.checked"
+          (change)="toggleSelection($event, name, group)"
+          (click)="$event.stopPropagation()"
+        >
+          {{name}}
+        </mat-checkbox>
+      </mat-option>
+    </mat-optgroup>
+  </mat-autocomplete>
+</mat-form-field>
